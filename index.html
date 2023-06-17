@@ -10,6 +10,57 @@
   <title>Bootstrap Navbar</title>
   <style>
 
+/* Styles for laptop screens */
+@media (min-width: 992px) {
+  .navbar-collapse.offcanvas-collapse {
+    position: static;
+    transform: none;
+    visibility: visible;
+    background-color: transparent;
+    overflow-y: visible;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .nav-item {
+    margin-right: 10px;
+  }
+
+  .nav-link {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Styles for mobile devices */
+@media (max-width: 991px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    visibility: hidden;
+    z-index: 9999;
+  }
+
+  .offcanvas-collapse.open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+
 .why-us {
   padding: 0;
 }
@@ -139,28 +190,30 @@ section {
 </head>
 <body class="container-fluid">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom fixed-top container-fluid">
-  <a class="navbar-brand" href="#">Logo</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#home">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#services">Services</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#contact">Contact</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom fixed-top">
+    <a class="navbar-brand" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-toggle="offcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse offcanvas-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+
 
 <section id="home">
   <div>
@@ -422,7 +475,22 @@ section {
             }
         });
         });
+
+        $(function () {
+    $('[data-toggle="offcanvas"]').on('click', function () {
+      $('.offcanvas-collapse').toggleClass('open');
+    });
+
+    // Close the offcanvas menu when a menu item is clicked
+    $('.navbar-nav .nav-link').on('click', function () {
+      if ($('.navbar-collapse').hasClass('open')) {
+        $('.offcanvas-collapse').removeClass('open');
+      }
+    });
+  });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
